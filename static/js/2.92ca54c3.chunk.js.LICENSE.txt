@@ -10,13 +10,6 @@ object-assign
   http://jedwatson.github.io/classnames
 */
 
-/*!
- * Chart.js v2.9.4
- * https://www.chartjs.org
- * (c) 2020 Chart.js Contributors
- * Released under the MIT License
- */
-
 /** @license React v0.20.2
  * scheduler.production.min.js
  *
@@ -86,5 +79,3 @@ object-assign
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-//! moment.js
