@@ -1,5 +1,5 @@
 import SuperAdminDashboard from "../views/superAdmin";
-import ReceptionistDashboard from "../views/receptionist";
+import ReceptionDashboard from "../views/reception";
 import DoctorDashboard from "../views/doctor";
 import LaboratoryDashboard from "../views/laboratory";
 import PharmacyDashboard from "../views/pharmacy";
@@ -16,15 +16,15 @@ const superAdmin = [
         allowedRoles: ['superAdmin']
     }
 ];
-const receptionist = [
+const reception = [
     {
         path: "/index",
         name: "Dashboard",
         icon: "ni ni-tv-2 text-primary",
-        component: ReceptionistDashboard,
+        component: ReceptionDashboard,
         layout: "/dashboard",
         display: true,
-        allowedRoles: ['receptionist']
+        allowedRoles: ['reception']
     }
 ];
 const doctor = [
@@ -68,10 +68,10 @@ const common = [
         component: Login,
         layout: "/auth",
         display: false,
-        allowedRoles: ['superAdmin', 'receptionist', 'doctor', 'laboratory']
+        allowedRoles: ['superAdmin', 'reception', 'doctor', 'laboratory']
     }
 ];
 
-const routes = [...common, ...superAdmin, ...receptionist, ...doctor, ...laboratory, ...pharmacy];
+const routes = [...common, ...superAdmin, ...reception, ...doctor, ...laboratory, ...pharmacy];
 
 export default routes;
