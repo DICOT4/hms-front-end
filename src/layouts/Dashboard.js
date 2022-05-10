@@ -25,7 +25,8 @@ const Dashboard = (props) => {
     }, [location]);
 
     const getRoutes = (routes) => {
-        return routes.map((prop, key) => <Route path={prop.layout + prop.path} component={prop.component} key={key}/>);
+        return routes.map((prop, key) => <Route exact path={prop.layout + prop.path} component={prop.component}
+                                                key={key}/>);
     };
 
     return (

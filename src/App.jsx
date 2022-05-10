@@ -9,9 +9,10 @@ export default function App(props) {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const defaultValue = {name: 'DICOTA', role: 'superAdmin'};
+        const defaultValue = {name: '', role: 'doctor'};
 
-        const _role = localStorage.getItem('_dicota-r');
+        // const _role = localStorage.getItem('_dicota-r');
+        const _role = localStorage.getItem('_dicota-rr');
         if (_role)
             setUser({...defaultValue, role: _role});
         else

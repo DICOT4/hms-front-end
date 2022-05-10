@@ -188,7 +188,7 @@ const Sidebar = (props) => {
                         <NavItem className="active-pro active">
                             <NavLink href="#">
                                 <i className="ni ni-spaceship"/>
-                                Placeholder
+                                User Guide
                             </NavLink>
                         </NavItem>
                     </Nav>

@@ -1,9 +1,9 @@
-import {Card, CardHeader, Col, Container, Row} from "reactstrap";
+import {Col, Container, Row} from "reactstrap";
 import {useEffect, useState} from "react";
 import PrescriptionsTable from "./components/prescriptionsTable";
 
 
-export default function Index(props) {
+export default function LabTests(props) {
     const [prescriptions, setPrescriptions] = useState([]);
     const [loading, setLoading] = useState('datatable');
 
@@ -17,16 +17,7 @@ export default function Index(props) {
             <Container className="mt--9" fluid>
                 <Row className="mb-4">
                     <Col>
-                        <Card className="shadow">
-                            <CardHeader className="border-0 d-flex justify-content-between align-items-center">
-                                <h2 className="mb-0">Welcome, Pharmacy!</h2>
-                            </CardHeader>
-                        </Card>
-                    </Col>
-                </Row>
-                <Row className="mb-4">
-                    <Col>
-                        <PrescriptionsTable title="New Prescriptions" data={prescriptions}
+                        <PrescriptionsTable title="Prescriptions" data={prescriptions}
                                             loading={loading === 'datatable'}/>
                     </Col>
                 </Row>
