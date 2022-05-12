@@ -10,13 +10,23 @@ import LabTests from "../views/laboratory/LabTests";
 import PharmacyDashboard from "../views/pharmacy";
 import Prescriptions from "../views/pharmacy/Prescriptions";
 import Login from "../views/common/Login";
+import AddUser from "../views/superAdmin/AddUser";
 
 const superAdmin = [
     {
         path: "/index",
-        name: "Dashboard",
-        icon: "ni ni-tv-2 text-primary",
+        name: "Home",
+        icon: "fas fa-home text-primary",
         component: SuperAdminDashboard,
+        layout: "/dashboard",
+        display: true,
+        allowedRoles: ['superAdmin']
+    },
+    {
+        path: "/add-user",
+        name: "Add User",
+        icon: "fas fa-user-plus text-primary",
+        component: AddUser,
         layout: "/dashboard",
         display: true,
         allowedRoles: ['superAdmin']
@@ -47,7 +57,7 @@ const reception = [
         icon: "fas fa-user-plus text-primary",
         component: AddPatient,
         layout: "/dashboard",
-        display: false,
+        display: true,
         allowedRoles: ['reception']
     }
 ];

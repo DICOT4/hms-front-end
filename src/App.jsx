@@ -9,13 +9,22 @@ export default function App(props) {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const defaultValue = {name: '', role: 'doctor'};
+        const defaultValue = {name: '', role: 'superAdmin', key: ''};
 
-        // const _role = localStorage.getItem('_dicota-r');
-        const _role = localStorage.getItem('_dicota-rr');
-        if (_role)
-            setUser({...defaultValue, role: _role});
-        else
+        const _user = localStorage.getItem('_dicota-r');
+        // const _user = localStorage.getItem('_dicota-rr');
+        if (_user) {
+            try {
+                const __user = JSON.parse(_user);
+                // console.log(__user);
+                setUser({
+                    ...defaultValue, ...__user,
+                    // role: 'reception'
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        } else
             setUser(defaultValue);
     }, []);
 
@@ -24,9 +33,14 @@ export default function App(props) {
             {
                 user ?
                     <Switch>
-                        <Route path="/auth" render={(props) => <AuthLayout {...props} />}/>
-                        <Route path="/dashboard" render={(props) => <Dashboard {...props} user={user}/>}/>
-                        <Redirect from="/" to="/dashboard/index"/>
+                        <Route path="/auth" render={(props) => {
+                            return !user.email ? <AuthLayout {...props} user={user}/> :
+                                <Redirect to="/dashboard/index"/>
+                        }}/>
+                        <Route path="/dashboard" render={(props) => {
+                            return user.email ? <Dashboard {...props} user={user}/> : <Redirect to="/auth/login"/>
+                        }}/>
+                        <Redirect from="*" to="/dashboard/index"/>
                     </Switch> :
                     <div className="text-center mt-7">
                         <Spinner color="primary"/>

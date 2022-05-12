@@ -27,7 +27,7 @@ import {
     UncontrolledDropdown,
 } from "reactstrap";
 
-const AdminNavbar = (props) => {
+const AdminNavbar = ({user}) => {
     return (
         <>
             <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -47,7 +47,7 @@ const AdminNavbar = (props) => {
                   </span>
                                     <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      {props.user.name}
+                      {user.name}
                     </span>
                                     </Media>
                                 </Media>
@@ -73,7 +73,10 @@ const AdminNavbar = (props) => {
                                 {/*    <span>Support</span>*/}
                                 {/*</DropdownItem>*/}
                                 {/*<DropdownItem divider/>*/}
-                                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                                <DropdownItem href="#pablo" onClick={(e) => {
+                                    localStorage.removeItem('_dicota-r');
+                                    window.location.reload();
+                                }}>
                                     <i className="ni ni-user-run"/>
                                     <span>Logout</span>
                                 </DropdownItem>

@@ -1,13 +1,24 @@
 import {Card, CardHeader, Col, Container, Row} from "reactstrap";
 import {useEffect, useState} from "react";
 import PatientsTable from "./components/PatientsTable";
+import {getReceptionPatients} from "../../http/httpService";
 
 
 export default function Index(props) {
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState('datatable');
 
-    useEffect(() => {
+    useEffect(async () => {
+        try {
+            const response = await getReceptionPatients();
+            const data = response.data.data;
+
+            data.patients.sort((a, b) => a.updatedAt < b.updatedAt).slice(0, 50);
+
+            setPatients(data.patients);
+        } catch (e) {
+            console.log(e);
+        }
         setLoading(null);
     }, []);
 

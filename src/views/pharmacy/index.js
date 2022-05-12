@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import PrescriptionsTable from "./components/prescriptionsTable";
 
 
-export default function Index(props) {
+export default function Index({user}) {
     const [prescriptions, setPrescriptions] = useState([]);
     const [loading, setLoading] = useState('datatable');
 

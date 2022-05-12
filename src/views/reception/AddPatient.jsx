@@ -1,12 +1,34 @@
 import {Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Row} from "reactstrap";
 import {useHistory} from "react-router-dom";
+import {useState} from "react";
+import {createPatient} from "../../http/httpService";
+import moment from "moment";
 
 export default function AddPatient() {
+    const [data, setData] = useState({dd: '1', mm: '1', yyyy: '2000'});
+    const [loading, setLoading] = useState(null);
 
     const history = useHistory();
 
-    const handleSubmit = e => {
+    const handleSubmit = async event => {
+        event.preventDefault();
+        setLoading('saving');
+        try {
+            const dob = data.dd + '-' + data.mm + '-' + data.yyyy;
 
+            delete data.dd;
+            delete data.mm;
+            delete data.yyyy;
+
+            await createPatient({
+                ...data,
+                dob: moment(dob, 'D-M-YYYY').format('YYYY-MM-DD')
+            });
+            history.push('/');
+        } catch (e) {
+            console.log(e);
+        }
+        setLoading(null);
     }
 
     return (
@@ -25,30 +47,26 @@ export default function AddPatient() {
                                         <Col md={6}>
                                             <FormGroup>
                                                 <Label for="name">Name</Label>
-                                                <Input type="text" id="name"
-                                                    // value={name || ""}
+                                                <Input type="text" id="name" name="name"
+                                                       value={data.name}
                                                        required
-                                                       maxLength={30}
-                                                       onInput={object => {
-                                                           if (object.target.value.length > object.target.maxLength)
-                                                               object.target.value = object.target.value.slice(0, object.target.maxLength)
-                                                       }}
-                                                       placeholder="" className="form-control-alternative"
-                                                    // onChange={e => setPassingScore(e.target.value)}
+                                                       className="form-control-alternative"
+                                                       onChange={e => setData({
+                                                           ...data,
+                                                           [e.target.name]: e.target.value
+                                                       })}
                                                 />
                                             </FormGroup>
                                             <FormGroup>
                                                 <Label for="guardianName">Guardian Name</Label>
-                                                <Input type="text" id="guardianName"
-                                                    // value={name || ""}
+                                                <Input type="text" name="guardian" id="guardian"
+                                                       value={data.guardian}
                                                        required
-                                                       maxLength={30}
-                                                       onInput={object => {
-                                                           if (object.target.value.length > object.target.maxLength)
-                                                               object.target.value = object.target.value.slice(0, object.target.maxLength)
-                                                       }}
-                                                       placeholder="" className="form-control-alternative"
-                                                    // onChange={e => setPassingScore(e.target.value)}
+                                                       className="form-control-alternative"
+                                                       onChange={e => setData({
+                                                           ...data,
+                                                           [e.target.name]: e.target.value
+                                                       })}
                                                 />
                                             </FormGroup>
                                         </Col>
@@ -57,32 +75,28 @@ export default function AddPatient() {
                                                 <Col lg={6}>
                                                     <FormGroup>
                                                         <Label for="cnic">CNIC</Label>
-                                                        <Input type="text" id="cnic"
-                                                            // value={cnic || ""}
+                                                        <Input type="number" id="cnic"
+                                                               value={data.cnic} name="cnic"
                                                                required
-                                                               maxLength={13}
-                                                               onInput={object => {
-                                                                   if (object.target.value.length > object.target.maxLength)
-                                                                       object.target.value = object.target.value.slice(0, object.target.maxLength)
-                                                               }}
-                                                               placeholder="" className="form-control-alternative"
-                                                            // onChange={e => setPassingScore(e.target.value)}
+                                                               className="form-control-alternative"
+                                                               onChange={e => setData({
+                                                                   ...data,
+                                                                   [e.target.name]: e.target.value
+                                                               })}
                                                         />
                                                     </FormGroup>
                                                 </Col>
                                                 <Col lg={6}>
                                                     <FormGroup>
                                                         <Label for="emergencyContact">Emergency Contact</Label>
-                                                        <Input type="text" id="emergencyContact"
-                                                            // value={cnic || ""}
+                                                        <Input type="number" id="emergencyContact"
+                                                               value={data.contact} name="contact"
                                                                required
-                                                               maxLength={13}
-                                                               onInput={object => {
-                                                                   if (object.target.value.length > object.target.maxLength)
-                                                                       object.target.value = object.target.value.slice(0, object.target.maxLength)
-                                                               }}
-                                                               placeholder="" className="form-control-alternative"
-                                                            // onChange={e => setPassingScore(e.target.value)}
+                                                               className="form-control-alternative"
+                                                               onChange={e => setData({
+                                                                   ...data,
+                                                                   [e.target.name]: e.target.value
+                                                               })}
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -91,35 +105,47 @@ export default function AddPatient() {
                                                 <Label for="">Date of Birth</Label>
                                                 <Row>
                                                     <Col sm={4}>
-                                                        <Input type="select" name="Tab Name" id="tabName"
-                                                            // value={levelName}
+                                                        <Input type="select" name="dd" id="tabName"
+                                                               value={data.dd}
                                                                className="form-control-alternative" required
-                                                            // onChange={e => setLevelName(e.target.value)}
+                                                               onChange={e => setData({
+                                                                   ...data,
+                                                                   [e.target.name]: e.target.value
+                                                               })}
                                                         >
                                                             {
-                                                                [1, 2, 3, 4, 5, 6, 7].map(i => <option>{i}</option>)
+                                                                [...(Array.from({length: 31}, (_, i) => i + 1))]
+                                                                    .map(i => <option>{i}</option>)
                                                             }
                                                         </Input>
                                                     </Col>
                                                     <Col sm={4}>
-                                                        <Input type="select" name="Tab Name" id="tabName"
-                                                            // value={levelName}
+                                                        <Input type="select" name="mm" id="mm"
+                                                               value={data.mm}
                                                                className="form-control-alternative" required
-                                                            // onChange={e => setLevelName(e.target.value)}
+                                                               onChange={e => setData({
+                                                                   ...data,
+                                                                   [e.target.name]: e.target.value
+                                                               })}
                                                         >
                                                             {
-                                                                ["Jan", "Feb", "Mar"].map(i => <option>{i}</option>)
+                                                                [...(Array.from({length: 12}, (_, i) => i + 1))]
+                                                                    .map(i => <option>{i}</option>)
                                                             }
                                                         </Input>
                                                     </Col>
                                                     <Col sm={4}>
-                                                        <Input type="select" name="Tab Name" id="tabName"
-                                                            // value={levelName}
+                                                        <Input type="select" name="yyyy" id="yyyy"
+                                                               value={data.yyyy}
                                                                className="form-control-alternative" required
-                                                            // onChange={e => setLevelName(e.target.value)}
+                                                               onChange={e => setData({
+                                                                   ...data,
+                                                                   [e.target.name]: e.target.value
+                                                               })}
                                                         >
                                                             {
-                                                                [2022].map(i => <option>{i}</option>)
+                                                                [...(Array.from({length: 101}, (_, i) => i + 1922))]
+                                                                    .map(i => <option>{i}</option>)
                                                             }
                                                         </Input>
                                                     </Col>
@@ -130,7 +156,8 @@ export default function AddPatient() {
                                     <Row className="mt-5">
                                         <Col className="text-center">
                                             <Button color="danger" onClick={() => history.goBack()}>Cancel</Button>
-                                            <Button color="primary" type="submit">Save</Button>
+                                            <Button color="primary" type="submit"
+                                                    disabled={loading === 'saving'}>Save</Button>
                                         </Col>
                                     </Row>
                                 </Form>
