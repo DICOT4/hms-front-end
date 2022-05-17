@@ -1,11 +1,11 @@
-import {Button, Card, CardBody, Col, Container, Row} from "reactstrap";
+import { Button, Card, CardBody, Col, Container, Row } from "reactstrap";
 
 
-export default function PatientDetails({}) {
-
+export default function PatientDetails({ data: { cnic, contact, dob, name, guardian } }) {
+    //
     return (
         <>
-            <div className="header bg-gradient-info pb-8 pt-5 pt-md-8"/>
+            <div className="header bg-gradient-info pb-8 pt-5 pt-md-8" />
             <Container className="mt--9" fluid>
                 <Row className="mb-4">
                     <Col>
@@ -20,25 +20,25 @@ export default function PatientDetails({}) {
                                     <Col md={6}>
                                         <div>
                                             <p className="mb-0 small text-muted">CNIC</p>
-                                            <h4>35201-1234567-1</h4>
+                                            <h4>{cnic}</h4>
                                         </div>
                                         <div>
                                             <p className="mb-0 small text-muted">Name</p>
-                                            <h4>Zain Abid</h4>
+                                            <h4>{name}</h4>
                                         </div>
                                         <div>
-                                            <p className="mb-0 small text-muted">Age</p>
-                                            <h4>22 years</h4>
+                                            <p className="mb-0 small text-muted">DOB</p>
+                                            <h4>{dob}</h4>
                                         </div>
                                     </Col>
                                     <Col md={6}>
                                         <div>
                                             <p className="mb-0 small text-muted">Guardian</p>
-                                            <h4>Abid Riaz</h4>
+                                            <h4>{guardian}</h4>
                                         </div>
                                         <div>
                                             <p className="mb-0 small text-muted">Emergency Contact</p>
-                                            <h4>+92-321-1234567</h4>
+                                            <h4>{contact}</h4>
                                         </div>
                                     </Col>
                                 </Row>
@@ -50,7 +50,7 @@ export default function PatientDetails({}) {
                                 <Row>
                                     <Col md={6} className="pr-md-5">
                                         <h4 className="font-weight-light">Prescriptions</h4>
-                                        <hr className="mt-0 mb-3"/>
+                                        <hr className="mt-0 mb-3" />
 
                                         <div className="d-flex justify-content-between align-items-center">
                                             <div className="d-flex justify-content-start">
@@ -94,7 +94,7 @@ export default function PatientDetails({}) {
                                     </Col>
                                     <Col md={6}>
                                         <h4 className="font-weight-light">Lab Tests</h4>
-                                        <hr className="mt-0 mb-3"/>
+                                        <hr className="mt-0 mb-3" />
 
                                         <div className="d-flex justify-content-between align-items-center">
                                             <div className="d-flex justify-content-start">

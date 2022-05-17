@@ -1,19 +1,35 @@
-import {Card, CardHeader, Col, Container, Row} from "reactstrap";
-import {useEffect, useState} from "react";
+import { Card, CardHeader, Col, Container, Row } from "reactstrap";
+import { useEffect, useState } from "react";
 import PatientsTable from "./components/PatientsTable";
+import { getDoctorData } from '../../http/httpService'
 
 
 export default function Index(props) {
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState('datatable');
+    const [doctor, setDoctor] = useState([]);
 
+    useEffect(async () => {
+        try {
+            const { id } = JSON.parse(localStorage.getItem("_dicota-r"))
+            const response = await getDoctorData(id);
+            const data = response.data.data;
+            data.patients.sort((a, b) => a.name > b.name);
+            data.patients = data.patients.filter((a) => a.activePatients.status === '1');
+            setPatients(data.patients);
+            setDoctor(id)
+        } catch (e) {
+            console.log(e);
+        }
+        setLoading(null);
+    }, []);
     useEffect(() => {
         setLoading(null);
     }, []);
 
     return (
         <>
-            <div className="header bg-gradient-info pb-8 pt-5 pt-md-8"/>
+            <div className="header bg-gradient-info pb-8 pt-5 pt-md-8" />
             <Container className="mt--9" fluid>
                 <Row className="mb-4">
                     <Col>
@@ -26,7 +42,7 @@ export default function Index(props) {
                 </Row>
                 <Row className="mb-4">
                     <Col>
-                        <PatientsTable title="Upcoming Patients" data={patients} loading={loading === 'datatable'}/>
+                        <PatientsTable title="Upcoming Patients" data={patients} doctor={doctor} loading={loading === 'datatable'} />
                     </Col>
                 </Row>
             </Container>
