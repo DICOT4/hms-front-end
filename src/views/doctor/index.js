@@ -1,7 +1,7 @@
-import { Card, CardHeader, Col, Container, Row } from "reactstrap";
-import { useEffect, useState } from "react";
+import {Card, CardHeader, Col, Container, Row} from "reactstrap";
+import {useEffect, useState} from "react";
 import PatientsTable from "./components/PatientsTable";
-import { getDoctorData } from '../../http/httpService'
+import {getDoctorData} from '../../http/httpService'
 
 
 export default function Index(props) {
@@ -11,19 +11,17 @@ export default function Index(props) {
 
     useEffect(async () => {
         try {
-            const { id } = JSON.parse(localStorage.getItem("_dicota-r"))
+            const {id} = JSON.parse(localStorage.getItem("_dicota-r"))
             const response = await getDoctorData(id);
             const data = response.data.data;
-            data.patients.sort((a, b) => a.name > b.name);
-            data.patients = data.patients.filter((a) => a.activePatients.status === '1');
+            data.patients.sort((a, b) => a.createdAt > b.createdAt);
+            data.patients = data.patients.filter((a) => a.status === '1');
+            console.log(data);
             setPatients(data.patients);
             setDoctor(id)
         } catch (e) {
             console.log(e);
         }
-        setLoading(null);
-    }, []);
-    useEffect(() => {
         setLoading(null);
     }, []);
 

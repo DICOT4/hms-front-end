@@ -1,7 +1,7 @@
-import { Col, Container, Row } from "reactstrap";
-import { useEffect, useState } from "react";
+import {Col, Container, Row} from "reactstrap";
+import {useEffect, useState} from "react";
 import PatientsTable from "./components/PatientsTable";
-import { getDoctorData } from '../../http/httpService'
+import {getDoctorData} from '../../http/httpService'
 
 
 export default function Patients(props) {
@@ -13,8 +13,7 @@ export default function Patients(props) {
             const { id } = JSON.parse(localStorage.getItem("_dicota-r"))
             const response = await getDoctorData(id);
             const data = response.data.data;
-            data.patients.sort((a, b) => a.name > b.name);
-
+            data.patients.sort((a, b) => a.createdAt > b.createdAt);
             setPatients(data.patients);
         } catch (e) {
             console.log(e);
