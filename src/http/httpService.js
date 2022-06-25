@@ -34,6 +34,18 @@ export const getDoctorData = (id) => {
     return axios.get(`${BASE_URI}/users/doctors/patients?doctorId=${id}`);
 }
 
-export const setPatientData = (payload) => {
-    return axios.post(`${BASE_URI}/web3`,payload);
+export const getLaboratoryData = (id) => {
+    return axios.get(`${BASE_URI}/users/laboratory?laboratoryId=${id}`);
+}
+
+export const getPharmacyData = (id) => {
+    return axios.get(`${BASE_URI}/users/pharmacy?pharmacyId=${id}`);
+}
+
+export const getPatientDetails = (id) => {
+    return axios.get(`${BASE_URI}/users/patient?patientId=${id}`);
+}
+
+export const sendWeb3Data = (payload) => {
+    return axios.post(`${BASE_URI}/web3`, payload);
 }

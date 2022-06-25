@@ -1,13 +1,24 @@
 import {Col, Container, Row} from "reactstrap";
 import {useEffect, useState} from "react";
 import LabTestsTable from "./components/LabTestsTable";
+import {getLaboratoryData} from "../../http/httpService";
 
 
 export default function LabTests(props) {
     const [labTests, setLabTests] = useState([]);
     const [loading, setLoading] = useState('datatable');
 
-    useEffect(() => {
+    useEffect(async () => {
+        try {
+            const {id} = JSON.parse(localStorage.getItem("_dicota-r"))
+            const response = await getLaboratoryData(id);
+            const data = response.data.data;
+            // data.patients.sort((a, b) => a.createdAt > b.createdAt);
+            console.log(data);
+            setLabTests(data.labtests);
+        } catch (e) {
+            console.log(e);
+        }
         setLoading(null);
     }, []);
 

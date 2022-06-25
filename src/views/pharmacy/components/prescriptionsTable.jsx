@@ -1,6 +1,7 @@
 import {Button, Card, CardHeader, Input, InputGroup, InputGroupAddon, InputGroupText, Spinner} from "reactstrap";
 import DataTable from 'react-data-table-component';
 import {useState} from "react";
+import moment from "moment";
 
 
 export default function PrescriptionsTable({title, data, loading}) {
@@ -33,25 +34,26 @@ export default function PrescriptionsTable({title, data, loading}) {
             </CardHeader>
             <DataTable
                 columns={[
-                    {name: 'CNIC', wrap: true, selector: row => row.cnic},
-                    {name: 'Name', wrap: true, sortable: true, selector: row => row.name},
-                    {name: 'Doctor', wrap: true, selector: row => row.doctor},
-                    {name: 'Prescribed At', wrap: true, selector: row => row.prescribedAt},
+                    // {name: 'CNIC', wrap: true, selector: row => row.cnic},
+                    // {name: 'Name', wrap: true, sortable: true, selector: row => row.name},
+                    {name: 'Patient', wrap: true, sortable: true, selector: row => `#${row.patientId}`},
+                    {name: 'Doctor', wrap: true, selector: row => `#${row.doctorId}`},
+                    {name: 'Prescribed At', wrap: true, selector: row => moment(row.createdAt).fromNow()},
                     {name: 'Submitted At', wrap: true, selector: row => row.submittedAt},
                     {
                         name: '', cell: row => (
                             <div>
-                                <Button color="secondary">
+                                <a href={row.ipfsHash} className="btn btn-secondary btn-sm" target="_blank">
                                     View
-                                </Button>
-                                <Button color="primary">
+                                </a>
+                                {title === 'New Prescriptions' && <Button color="primary" size="sm">
                                     Submit
-                                </Button>
+                                </Button>}
                             </div>
                         )
                     }
                 ]}
-                data={tableData}
+                data={data}
                 progressPending={loading}
                 progressComponent={<div className="py-5"><Spinner color="primary"/></div>}
                 striped
