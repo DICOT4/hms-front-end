@@ -40,22 +40,22 @@ function ReviewPatient({ modal, toggle, doctor, patient }) {
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={ async () => {
+                    <Button color="primary" onClick={async () => {
 
                         if (HasMedicinen) {
-                           await  setPatientData({
-                            "functionName": "addPrescription",
-                            "data": [
-                                uuidv4(),
-                                `${doctor}`,
-                                `${patient}`,
-                                '2',
-                                URL
-                            ]
-                        })
+                            await setPatientData({
+                                "functionName": "addPrescription",
+                                "data": [
+                                    uuidv4(),
+                                    `${doctor}`,
+                                    `${patient}`,
+                                    '2',
+                                    URL
+                                ]
+                            })
                         }
                         if (HaslabTest) {
-                           await setPatientData({
+                            await setPatientData({
                                 "functionName": "addLabTest",
                                 "data": [
                                     uuidv4(),

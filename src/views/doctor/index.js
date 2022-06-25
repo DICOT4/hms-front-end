@@ -14,8 +14,9 @@ export default function Index(props) {
             const { id } = JSON.parse(localStorage.getItem("_dicota-r"))
             const response = await getDoctorData(id);
             const data = response.data.data;
+            console.log(data)
             data.patients.sort((a, b) => a.name > b.name);
-            data.patients = data.patients.filter((a) => a.activePatients.status === '1');
+            data.patients = data.patients.filter((a) => a.status === '1');
             setPatients(data.patients);
             setDoctor(id)
         } catch (e) {

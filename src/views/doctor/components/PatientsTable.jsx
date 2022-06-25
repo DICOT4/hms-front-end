@@ -11,7 +11,7 @@ export default function PatientsTable({ title, data, loading, doctor }) {
     const [selectedPatients, setSelectedPatients] = useState('');
     const [selectedPatientsDetails, setSelectedPatientsDetails] = useState({});
     console.log("selectedPatientsDetails",selectedPatientsDetails)
-    const [viewSelectedPatientsDetails, setViewSelectedPatientsDetails] = useState(false);
+    // const [viewSelectedPatientsDetails, setViewSelectedPatientsDetails] = useState(false);
     return (
         <Card className="shadow">
             <CardHeader className="border-0 d-flex justify-content-between align-items-center">
@@ -22,7 +22,7 @@ export default function PatientsTable({ title, data, loading, doctor }) {
                     { name: 'CNIC', wrap: true, selector: row => row.cnic },
                     { name: 'Name', wrap: true, sortable: true, selector: row => row.name },
                     { name: 'DOB', wrap: true, selector: row => row.dob },
-                    { name: 'Date/Time', wrap: true, selector: row => row.activePatients.createdAt },
+                    { name: 'Date/Time', wrap: true, selector: row => row.createdAt },
                     {
                         name: '', cell: row => (
                             <div>
@@ -52,7 +52,7 @@ export default function PatientsTable({ title, data, loading, doctor }) {
                 highlightOnHover
             />
             {viewModal && <ReviewPatient modal={viewModal} doctor={doctor} patient={selectedPatients} toggle={() => { setModalVisibility(false) }} />}
-            {viewSelectedPatientsDetails && <PatientDetails data={selectedPatientsDetails}/>}
+            {/* {viewSelectedPatientsDetails && <PatientDetails data={selectedPatientsDetails}/>} */}
         </Card>
     )
 }
